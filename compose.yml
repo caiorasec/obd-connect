@@ -1,0 +1,11 @@
+name: obd-connect
+services:
+  ha-tests:
+    image: ghcr.io/home-assistant/home-assistant:2026.11.0@sha256:c6c1ca9931036bf3a2c4cc088d8db25dfea3b33935a5ecc83c40349462e2f69e
+    profiles: ["ha"]
+    entrypoint: ["python"]
+    working_dir: /work
+    volumes:
+      - ./custom_components:/work/custom_components:ro,z
+      - ./tests:/work/tests:ro,z
+    command: ["-m", "unittest", "discover", "-s", "tests/homeassistant", "-v"]

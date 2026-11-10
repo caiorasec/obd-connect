@@ -1,0 +1,22 @@
+{
+  "title": "OBD Connect",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Parear o aplicativo Android",
+        "description": "Copie o identificador do veículo e a chave de Ajustes → OBD Connect no Android. Use a mesma chave (32–128 caracteres ASCII sem espaços) nos dois lados. Configure o endereço HTTPS no aplicativo. GPS não é aceito.",
+        "data": {
+          "name": "Nome do veículo",
+          "vehicle_id": "Identificador do veículo",
+          "receiver_key": "Chave do receptor"
+        }
+      }
+    },
+    "error": {
+      "invalid_pairing": "Identificador do veículo ou chave inválidos"
+    },
+    "abort": {
+      "already_configured": "Este veículo já está configurado."
+    }
+  }
+}
