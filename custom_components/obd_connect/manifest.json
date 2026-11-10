@@ -1,11 +1,17 @@
 {
   "domain": "obd_connect",
   "name": "OBD Connect",
-  "version": "0.1.0",
+  "codeowners": [
+    "@caiorasec"
+  ],
   "config_flow": true,
-  "dependencies": ["http"],
-  "codeowners": [],
-  "requirements": [],
+  "dependencies": [
+    "http"
+  ],
+  "documentation": "https://github.com/caiorasec/obd-connect",
   "integration_type": "device",
-  "iot_class": "local_push"
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/caiorasec/obd-connect/issues",
+  "requirements": [],
+  "version": "0.1.0"
 }

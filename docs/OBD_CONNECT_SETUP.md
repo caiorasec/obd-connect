@@ -9,7 +9,9 @@ Versão inicial: integração 0.1.0, Android 0.4.0. Testada com Home Assistant 2
 3. Reinicie o Home Assistant para reconhecer a instalação manual.
 4. Abra Configurações → Dispositivos e serviços → Adicionar integração → OBD Connect.
 
-Isso é instalação manual. A distribuição pelo Marketplace/HACS será concluída depois que forem definidos repositório público, responsáveis, documentação/issues e marca, e passarem os verificadores de publicação. Não é preciso instalar outro servidor Docker receptor.
+## Marketplace / HACS
+
+Adicione `https://github.com/caiorasec/obd-connect` como repositório personalizado, categoria Integração, ou use [o botão de instalação](https://my.home-assistant.io/redirect/hacs_repository/?owner=caiorasec&repository=obd-connect&category=integration). Instale OBD Connect e siga a indicação de reinício da sua versão. A inclusão no catálogo público de busca é uma etapa separada; não é necessária para instalar por esse link.
 
 ## Pareamento
 
