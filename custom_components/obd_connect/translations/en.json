@@ -1,0 +1,22 @@
+{
+  "title": "OBD Connect",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Pair the Android app",
+        "description": "Copy the vehicle identifier and receiver key from Android Settings → OBD Connect. Use the same key (32–128 ASCII characters without spaces) on both sides. Configure the HTTPS address in the app. GPS is not accepted.",
+        "data": {
+          "name": "Vehicle name",
+          "vehicle_id": "Vehicle identifier",
+          "receiver_key": "Receiver key"
+        }
+      }
+    },
+    "error": {
+      "invalid_pairing": "Invalid vehicle identifier or receiver key"
+    },
+    "abort": {
+      "already_configured": "This vehicle is already configured."
+    }
+  }
+}
