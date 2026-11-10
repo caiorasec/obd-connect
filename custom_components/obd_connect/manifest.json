@@ -1,6 +1,9 @@
 {
   "domain": "obd_connect",
   "name": "OBD Connect",
+  "categories": [
+    "vehicles_transport.cars_evs"
+  ],
   "codeowners": [
     "@caiorasec"
   ],

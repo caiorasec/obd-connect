@@ -8,6 +8,7 @@
 - Nove sensores de telemetria, sem regressão por histórico atrasado e com expiração automática.
 - GPS e fontes de simulação excluídos do recebimento.
 - Traduções de configuração em português e inglês, marca própria e distribuição por repositório personalizado Marketplace/HACS.
+- Licença MIT e autoria pública pelo perfil GitHub, com e-mail noreply.
 - Testes com Home Assistant 2026.11.0 em Docker e validações de distribuição.
 
 A instalação residencial, o caminho pelo Nabu Casa e o agendamento prolongado do Android ainda precisam de validação de campo. Não há envio de comandos ao carro nem interface de viagens no Home Assistant nesta versão.

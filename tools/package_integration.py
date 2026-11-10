@@ -18,8 +18,9 @@ def add(archive, path, name):
 
 with ZipFile(output, "w", ZIP_DEFLATED) as archive:
     for path in sorted(component.rglob("*")):
-        if path.is_file() and path.suffix in (".py", ".json", ".png", ".svg") and "__pycache__" not in path.parts:
+        if path.is_file() and (path.suffix in (".py", ".json", ".png", ".svg") or path.name == "LICENSE") and "__pycache__" not in path.parts:
             add(archive, path, path.relative_to(ROOT))
+    add(archive, ROOT / "LICENSE", "LICENSE")
     add(archive, ROOT / "hacs.json", "hacs.json")
     add(archive, ROOT / "docs" / "OBD_CONNECT_SETUP.md", "README.md")
 checksum = hashlib.sha256(output.read_bytes()).hexdigest()

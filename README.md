@@ -47,3 +47,7 @@ python3 tools/package_integration.py
 Os testes usam Home Assistant real em Docker e arquivos temporários, sem acessar carro, telefone ou servidor residencial. O workflow inclui testes, Hassfest e HACS sem ignorar verificações. O pacote manual é gerado em `artifacts/`; o Marketplace instala o componente a partir do repositório/release, sem precisar de outro servidor receptor.
 
 [Contrato e limites](docs/PHASE_3.md) · [Histórico de versões](CHANGELOG.md) · [Reportar problema](https://github.com/caiorasec/obd-connect/issues)
+
+## Licença
+
+[MIT](LICENSE). Titular: `caiorasec`.
