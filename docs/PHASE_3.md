@@ -1,6 +1,6 @@
 # Fase 3 — OBD Connect, Android 0.4.0 / integração 0.1.0
 
-Implementação local de envio opcional por HTTPS, sem GPS. A instalação residencial e a publicação Marketplace/HACS aguardam os dados que o usuário fornecerá depois. [Guia de instalação](OBD_CONNECT_SETUP.md).
+Implementação local de envio opcional por HTTPS, sem GPS. A instalação residencial aguarda o endereço/versão do servidor. O repositório público é https://github.com/caiorasec/obd-connect e a distribuição usa repositório personalizado Marketplace/HACS; não há inclusão no catálogo público de busca. [Guia de instalação](OBD_CONNECT_SETUP.md).
 
 ## Fluxo e execução Android
 
@@ -39,7 +39,7 @@ O histórico bruto preserva horários originais em armazenamento próprio. Ele n
 
 A integração roda dentro do Home Assistant, sem servidor FastAPI/MQTT separado. `docker compose --profile ha run --rm ha-tests` usa imagem oficial 2026.11.0 fixada por digest para testar o servidor HTTP, config flow e sensores reais, isolados da instalação residencial.
 
-`tools/package_integration.py` gera ZIP local com o componente e instruções. Estrutura `custom_components/obd_connect/` e `hacs.json` estão presentes. URL pública de documentação/issues, codeowners, marca e verificações Hassfest/Marketplace de publicação ainda estão pendentes; o pacote não está publicado nem anunciado como validado para o catálogo.
+`tools/package_integration.py` gera ZIP local com o componente e instruções. Estrutura `custom_components/obd_connect/`, `hacs.json`, documentação/issues públicos, codeowner, marca e workflow de validação estão presentes. A release só deve ser publicada depois das verificações; a inclusão no catálogo público exige solicitação e análise separadas.
 
 Referência de distribuição: https://contributors.home-assistant.io/marketplace/guides/integrations/
 

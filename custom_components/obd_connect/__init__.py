@@ -8,11 +8,14 @@ import time
 from aiohttp import web
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import Platform
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.http import HomeAssistantView
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import DOMAIN, MAX_BODY
 from .storage import Ledger
+
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 
 async def async_setup(hass, config):
