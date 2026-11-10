@@ -1,11 +1,11 @@
 # Instalar e parear OBD Connect
 
-Versão inicial: integração 0.1.0, Android 0.4.0. Testada com Home Assistant 2026.11.0 em Docker. A versão residencial ainda precisa ser informada e validada. Nenhum endereço/credencial residencial foi configurado.
+Versão inicial: integração 0.1.1, Android 0.4.0. Testada com Home Assistant 2026.11.0 em Docker. A versão residencial ainda precisa ser informada e validada. Nenhum endereço/credencial residencial foi configurado.
 
 ## Instalação local
 
 1. Gere o pacote com `python3 tools/package_integration.py`.
-2. Extraia `artifacts/obd-connect-0.1.0.zip` e copie a pasta `custom_components/obd_connect` para `<config>/custom_components/obd_connect` do Home Assistant. Em HA Container, `<config>` é o volume montado em `/config`.
+2. Extraia `artifacts/obd-connect-0.1.1.zip` e copie a pasta `custom_components/obd_connect` para `<config>/custom_components/obd_connect` do Home Assistant. Em HA Container, `<config>` é o volume montado em `/config`.
 3. Reinicie o Home Assistant para reconhecer a instalação manual.
 4. Abra Configurações → Dispositivos e serviços → Adicionar integração → OBD Connect.
 
@@ -51,3 +51,9 @@ python3 tools/package_integration.py
 ```
 
 Os testes usam apenas dados fictícios em ambiente temporário. Não iniciam conexão com o carro, não usam credenciais residenciais e não limpam a fila do telefone.
+
+## Recebeu dados, mas a telemetria está indisponível?
+
+No dispositivo OBD Connect, consulte os diagnósticos **Registros recebidos** e **Último registro recebido** (integração 0.1.1+). Eles mostram registros persistidos, mesmo que a medição seja antiga. Os nove sensores de telemetria só ficam disponíveis com amostras dos últimos três minutos.
+
+A simulação do aplicativo não transmite valores fictícios ao Home Assistant. É possível enviar o histórico real já guardado sem ligar o carro; isso atualiza os diagnósticos e o histórico, mas não transforma leituras antigas em medições atuais. GPS pendente permanece local.

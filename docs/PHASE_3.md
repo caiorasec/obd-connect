@@ -1,4 +1,4 @@
-# Fase 3 — OBD Connect, Android 0.4.0 / integração 0.1.0
+# Fase 3 — OBD Connect, Android 0.4.0 / integração 0.1.1
 
 Implementação local de envio opcional por HTTPS, sem GPS. A instalação residencial aguarda o endereço/versão do servidor. O repositório público é https://github.com/caiorasec/obd-connect e a distribuição usa repositório personalizado Marketplace/HACS; não há inclusão no catálogo público de busca. [Guia de instalação](OBD_CONNECT_SETUP.md).
 
@@ -31,7 +31,7 @@ Um config entry por veículo, configurado pela interface com nome, UUID do aplic
 
 SQLite em `.storage/obd_connect/<entry_id>.sqlite3` guarda histórico e recibos sem expiração automática nesta primeira entrega. Incluir esse diretório nos backups. Não remover recibos enquanto o cliente puder reenviar os IDs. O tamanho deve ser acompanhado; falha de persistência impede confirmação. Remover a configuração não apaga o histórico privado do disco.
 
-Operações SQLite executam fora do event loop. Cada config entry serializa recebimentos e atualizações de sensores. Há nove sensores de telemetria, separados por PID e vinculados ao veículo. A consulta seleciona o maior capturedAtMs por PID; reenvio de leituras antigas não substitui leituras mais novas. Sem amostra nos últimos três minutos, o sensor fica indisponível; verificação de expiração ocorre a cada 30 s. Isso não interpreta ausência de dados como motor desligado.
+Operações SQLite executam fora do event loop. Cada config entry serializa recebimentos e atualizações de sensores. Há nove sensores de telemetria, separados por PID e vinculados ao veículo, e dois diagnósticos de recepção persistida (contagem de registros únicos e horário do último registro recebido). Estes dois diagnósticos não expiram com a idade das medições. A consulta seleciona o maior capturedAtMs por PID; reenvio de leituras antigas não substitui leituras mais novas. Sem amostra nos últimos três minutos, o sensor fica indisponível; verificação de expiração ocorre a cada 30 s. Isso não interpreta ausência de dados como motor desligado.
 
 O histórico bruto preserva horários originais em armazenamento próprio. Ele não é retroinserido no Recorder como se tivesse sido recebido na hora da medição. Viagens ficam armazenadas, mas a primeira entrega não adiciona interface de consulta/exportação de viagens no Home Assistant. Diagnósticos mostram contagens e tipos, sem chave, coordenadas ou histórico bruto.
 

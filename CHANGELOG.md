@@ -1,5 +1,12 @@
 # Histórico de versões
 
+## 0.1.1 — 2026-11-10
+
+- Acrescenta diagnósticos Registros recebidos e Último registro recebido, inclusive quando todas as leituras do veículo já são antigas.
+- Contador e horário são restaurados do histórico persistido; reenvios idênticos não aumentam a contagem.
+- Mantém os nove sensores de telemetria indisponíveis após três minutos e não envia simulações nem GPS.
+- Torna a sincronização visível sem exigir nova coleta ou ligar o carro.
+
 ## 0.1.0 — 2026-11-10
 
 - Configuração pela interface de um veículo e chave exclusiva por receptor.

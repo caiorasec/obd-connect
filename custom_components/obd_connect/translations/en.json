@@ -18,5 +18,15 @@
     "abort": {
       "already_configured": "This vehicle is already configured."
     }
+  },
+  "entity": {
+    "sensor": {
+      "stored_records": {
+        "name": "Received records"
+      },
+      "last_received": {
+        "name": "Last record received"
+      }
+    }
   }
 }

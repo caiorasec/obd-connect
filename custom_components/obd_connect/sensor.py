@@ -1,8 +1,9 @@
 """Latest fresh values; backfill never becomes a current measurement."""
 
-from datetime import timedelta
+from datetime import UTC, datetime, timedelta
 import time
-from homeassistant.components.sensor import SensorEntity, SensorStateClass
+from homeassistant.components.sensor import SensorDeviceClass, SensorEntity, SensorStateClass
+from homeassistant.const import EntityCategory
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.event import async_track_time_interval
@@ -12,7 +13,7 @@ from .const import DOMAIN, FRESH_MS, METRICS
 
 
 async def async_setup_entry(hass, entry, async_add_entities):
-    async_add_entities(ObdSensor(entry, pid) for pid in METRICS)
+    async_add_entities([*(ObdSensor(entry, pid) for pid in METRICS), ObdReceiptSensor(entry, "stored_records"), ObdReceiptSensor(entry, "last_received")])
 
 
 class ObdSensor(CoordinatorEntity, SensorEntity):
@@ -49,3 +50,28 @@ class ObdSensor(CoordinatorEntity, SensorEntity):
     def extra_state_attributes(self):
         sample = self.coordinator.data["latest"].get(self.pid)
         return {"captured_at_ms": sample["capturedAtMs"], "source": "REAL"} if sample else {}
+
+
+class ObdReceiptSensor(CoordinatorEntity, SensorEntity):
+    """Durable receipt diagnostics, independent of measurement freshness."""
+
+    _attr_has_entity_name = True
+    _attr_entity_category = EntityCategory.DIAGNOSTIC
+
+    def __init__(self, entry, key):
+        super().__init__(entry.runtime_data["coordinator"])
+        self.key = key
+        self._attr_unique_id = f"{entry.data['vehicle_id']}_{key}"
+        self._attr_translation_key = key
+        self._attr_device_info = DeviceInfo(identifiers={(DOMAIN, entry.data["vehicle_id"])}, name=entry.title, manufacturer="OBD Connect", model="Android + ELM327")
+        if key == "last_received":
+            self._attr_device_class = SensorDeviceClass.TIMESTAMP
+        else:
+            self._attr_icon = "mdi:database-check-outline"
+
+    @property
+    def native_value(self):
+        if self.key == "stored_records":
+            return self.coordinator.data["records"]
+        received = self.coordinator.data["received"]
+        return datetime.fromtimestamp(received / 1000, UTC) if received is not None else None

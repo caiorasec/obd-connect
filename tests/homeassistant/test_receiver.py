@@ -134,7 +134,7 @@ class HomeAssistantTests(unittest.IsolatedAsyncioTestCase):
         await self.send(batch(old))
         await self.hass.async_block_till_done()
         self.assertEqual("750", self.hass.states.get(rpm.entity_id).state)
-        self.assertEqual(9, len(sensors))
+        self.assertEqual(11, len(sensors))
 
     async def test_http_payload_limit_and_invalid_json(self):
         response = await self.client.post(f"/api/obd_connect/{VEHICLE}/batches", data=b"x" * 262145, headers={"Authorization": "Bearer " + "a" * 43})
@@ -172,3 +172,23 @@ class HomeAssistantTests(unittest.IsolatedAsyncioTestCase):
         await asyncio.sleep(31.5)
         await self.hass.async_block_till_done()
         self.assertEqual("unavailable", self.hass.states.get(rpm.entity_id).state)
+
+    async def test_receipts_visible_for_historical_data_and_survive_reload(self):
+        row = sample(int(time.time() * 1000) - 86400000)
+        await self.send(batch(row))
+        await self.hass.async_block_till_done()
+        registry = er.async_get(self.hass)
+        count_id = registry.async_get_entity_id("sensor", "obd_connect", f"{VEHICLE}_stored_records")
+        received_id = registry.async_get_entity_id("sensor", "obd_connect", f"{VEHICLE}_last_received")
+        self.assertEqual("1", self.hass.states.get(count_id).state)
+        receipt_time = self.hass.states.get(received_id).state
+        self.assertNotIn(receipt_time, ("unknown", "unavailable"))
+        await self.send(batch(row))  # lost ACK / identical retry
+        await self.hass.async_block_till_done()
+        self.assertEqual("1", self.hass.states.get(count_id).state)
+        self.assertEqual(receipt_time, self.hass.states.get(received_id).state)
+        await self.hass.config_entries.async_unload(self.entry.entry_id)
+        await self.hass.config_entries.async_setup(self.entry.entry_id)
+        await self.hass.async_block_till_done()
+        self.assertEqual("1", self.hass.states.get(count_id).state)
+        self.assertEqual(receipt_time, self.hass.states.get(received_id).state)

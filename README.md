@@ -27,6 +27,8 @@ O repositório personalizado pode ser instalado diretamente; ele ainda não inte
 
 Um dispositivo por veículo, com nove sensores: RPM, velocidade, temperatura do motor, carga, acelerador, MAP, temperatura de admissão, tensão do módulo e tensão do adaptador (ATRV).
 
+Além deles, os diagnósticos **Registros recebidos** e **Último registro recebido** mostram a recepção persistida, mesmo quando não há leituras recentes. O contador inclui telemetria e revisões de viagem aceitas, sem contar duplicatas.
+
 Leituras com mais de três minutos ficam indisponíveis. Dados atrasados continuam no histórico, sem substituir leituras mais recentes. GPS e simulações não são aceitos. A integração só recebe dados; não envia comandos ao carro.
 
 ## Rede, autenticação e histórico
